@@ -9,8 +9,13 @@ sigmoid(theta)
 \arguments{
 \item{theta}{the linear predictor}
 }
+\value{
+the sigmoid probability
+}
 \description{
-This function takes a number \eqn{\theta\in\mathbb{R}} and returns its respective probability in \eqn{[0,1]}.
+This function takes a number \eqn{\theta\in\mathbb{R}} and returns its
+     respective sigmoid probability \eqn{\frac{e^{theta}}{1+e^{theta}}}.
+     This is used in logistic regression to model \eqn{P(y=1|x)}.
 }
 \examples{
 sigmoid(0)

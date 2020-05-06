@@ -4,13 +4,14 @@
 \alias{le_base_data}
 \title{le_base_data function}
 \usage{
-le_base_data(M_A, M_B)
+le_base_data(m_a, m_b)
 }
 \arguments{
-\item{M_A}{a logistic regression model}
+\item{m_a}{a logistic regression model}
 
-\item{M_B}{a logistic regression model}
+\item{m_b}{a logistic regression model}
 }
 \description{
-This function takes two logistic regression models \eqn{M_A, M_B} and arranges their data for the equivalence functions.
+This function takes two logistic regression models \eqn{M_A, M_B} and
+     arranges their data for the equivalence functions.
 }
