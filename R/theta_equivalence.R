@@ -29,6 +29,7 @@
 #' }
 #' @keywords beta equivalence, vector equivalence
 #' @export
+#' @importFrom stats predict.glm quantile sd qt pt
 
 theta_equivalence <- function(m_a, m_b, alpha = 0.05, delta = 1, r = 0) {
   #A's predictions on self

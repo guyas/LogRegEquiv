@@ -25,6 +25,7 @@
 #' }
 #' @keywords brier equivalence
 #' @export
+#' @importFrom stats predict.glm var qt
 
 brier_equivalence <- function(m_a, m_b, alpha = 0.05, delta = 1) {
   le_data <- le_base_data(m_a, m_b)

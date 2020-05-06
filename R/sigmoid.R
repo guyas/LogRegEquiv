@@ -1,6 +1,6 @@
 #' Sigmoid function
 #'
-#' This function takes a number \eqn{\theta\in\mathbb{R}} and returns its
+#' This function takes a number \eqn{\theta\in \mathbb{R}} and returns its
 #'      respective sigmoid probability \eqn{\frac{e^{theta}}{1+e^{theta}}}.
 #'      This is used in logistic regression to model \eqn{P(y=1|x)}.
 #' @param theta the linear predictor

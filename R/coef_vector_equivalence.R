@@ -18,6 +18,7 @@
 #' }
 #' @keywords beta equivalence, vector equivalence
 #' @export
+#' @importFrom stats qchisq pchisq
 
 coef_vector_equivalence <- function(m_a, m_b, alpha = 0.05, delta = 1) {
   le_data <- le_base_data(m_a, m_b)
