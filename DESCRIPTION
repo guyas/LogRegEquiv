@@ -10,3 +10,8 @@ RoxygenNote: 7.1.0
 License: MIT + file LICENSE
 Imports: 
     stats
+Suggests: 
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder: knitr

@@ -15,5 +15,11 @@ brier_score <- function(y, pi) {
   if (length(y) != length(pi)) {
     stop("mismatching vectors")
   }
+  if (sum((y == 1) | (y == 0)) < length(y)) {
+    stop("illegal y vector")
+  }
+  if (sum((pi <= 1) & (pi >= 0)) < length(pi)) {
+    stop("illegal pi vector")
+  }
   return(mean((y - pi)^2, na.rm = T))
 }

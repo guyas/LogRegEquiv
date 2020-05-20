@@ -11,5 +11,8 @@
 #' sigmoid(0)
 
 sigmoid <- function(theta) {
+  if (!(is.numeric(theta))) {
+    stop("non-numeric input")
+  }
   return(exp(theta) / (1 + exp(theta)))
   }
