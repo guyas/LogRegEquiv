@@ -4,7 +4,7 @@
 \alias{brier_equivalence}
 \title{brier_equivalence function}
 \usage{
-brier_equivalence(model_a, model_b, test_data, delta, alpha = 0.05)
+brier_equivalence(model_a, model_b, test_data, dv_index, delta, alpha = 0.05)
 }
 \arguments{
 \item{model_a}{logistic regression model \eqn{M_A}}
@@ -13,26 +13,28 @@ brier_equivalence(model_a, model_b, test_data, delta, alpha = 0.05)
 
 \item{test_data}{testing dataset}
 
+\item{dv_index}{column number of the dependent variable}
+
 \item{delta}{equivalence sensitivity level \eqn{\delta_B}}
 
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
 }
 \value{
 \describe{
-  \item{\code{brier_score_ac}}{\eqn{M_A} Brier score on the testing data}
-  \item{\code{brier_score_bc}}{\eqn{M_B} Brier score on the testing data}
   \item{\code{equivalence}}{Are models \eqn{M_A,M_B} producing equivalent
       Brier scores for the given test data? (boolean)}
+  \item{\code{brier_score_ac}}{\eqn{M_A} Brier score on the testing data}
+  \item{\code{brier_score_bc}}{\eqn{M_B} Brier score on the testing data}
   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
-  \item{\code{crit_val}}{level-\eqn{\alpha} critical value for the test}
+  \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
 }
 }
 \description{
 This function takes two logistic regression models \eqn{M_A, M_B},
-    significance level \eqn{\alpha} and sensitivity level \eqn{\delta_B}.
-    It checks whether the models perform equivalently on a test set and
-    returns various figures.
+    test data, significance level \eqn{\alpha} and sensitivity level
+    \eqn{\delta_B}. It checks whether the models perform equivalently on the
+    test set and returns various figures.
 }
 \keyword{brier}
 \keyword{equivalence}

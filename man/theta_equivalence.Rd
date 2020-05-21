@@ -4,46 +4,37 @@
 \alias{theta_equivalence}
 \title{coef_vector_equivalence function}
 \usage{
-theta_equivalence(m_a, m_b, alpha = 0.05, delta = 1, r = 0)
+theta_equivalence(model_a, model_b, test_data, r = 0.1, alpha = 0.05)
 }
 \arguments{
-\item{m_a}{logistic regression model \eqn{M_A}}
+\item{model_a}{logistic regression model \eqn{M_A}}
 
-\item{m_b}{logistic regression model \eqn{M_B}}
+\item{model_b}{logistic regression model \eqn{M_B}}
+
+\item{test_data}{testing dataset}
+
+\item{r}{ratio of allowed 'flips' (defaults to 0.1)}
 
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
-
-\item{delta}{equivalence sensitivity level \eqn{\delta_\beta} (defaults to 1)}
-
-\item{r}{ratio of allowed 'flips' (defaults to 0)}
 }
 \value{
-the \emph{AB} notation refers to the fit of model A to the data of
-     model B (and \emph{BA} for vice versa) \describe{
-  \item{\code{ab_equiv}}{Are models \eqn{M_A,M_B} producing equivalent
-      log-odds for \eqn{M_B}'s training data? (boolean)}
-  \item{\code{ba_equiv}}{Are models \eqn{M_A,M_B} producing equivalent
-      log-odds for \eqn{M_A}'s training data? (boolean)}
-  \item{\code{test_stat_ab}}{The AB test statistic}
-  \item{\code{test_stat_ba}}{The BA test statistic}
-  \item{\code{crit_ab}}{level-\eqn{\alpha} critical value the AB test}
-  \item{\code{crit_ba}}{level-\eqn{\alpha} critical value the BA test}
-  \item{\code{xi_bar_ab}}{Mean \eqn{\xi} value for the AB test}
-  \item{\code{xi_bar_ba}}{Mean \eqn{\xi} value for the BA test}
-  \item{\code{delta_ab}}{Sensitivity level for the AB equivalence test
-      (useful in case of indicating \code{r} value)}
-  \item{\code{delta_ba}}{Sensitivity level for the BA equivalence test
-      (useful in case of indicating \code{r} value)}
-  \item{\code{p_val_ab}}{P-value for the AB test statistic}
-  \item{\code{p_val_ba}}{P-value for the BA test statistic}
+\describe{
+  \item{\code{equivalence}}{Are models \eqn{M_A,M_B} producing equivalent
+      log-odds for the given test data? (boolean)}
+  \item{\code{test_statistic}}{The test statistic}
+  \item{\code{critical_value}}{a level-\eqn{\alpha} critical value the test}
+  \item{\code{xi_bar}}{Mean \eqn{\xi} value for the test}
+  \item{\code{delta_theta}}{Calculated sensitivity level for the equivalence
+      test}
 }
 }
 \description{
 This function takes two logistic regression models \eqn{M_A, M_B},
-    significance level \eqn{\alpha} and sensitivity level \eqn{\delta_B}.
-    It checks whether the log-odds vectors are equivalent.
+    test data, significance level \eqn{\alpha} and allowed flips ratio
+    \eqn{r}. It checks whether the models produce equivalent log-odds for
+    the given test set and returns various figures.
 }
-\keyword{beta}
 \keyword{equivalence}
 \keyword{equivalence,}
-\keyword{vector}
+\keyword{log-odds}
+\keyword{theta}

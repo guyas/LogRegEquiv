@@ -4,26 +4,22 @@
 \alias{coef_vector_equivalence}
 \title{coef_vector_equivalence function}
 \usage{
-coef_vector_equivalence(m_a, m_b, alpha = 0.05, delta = 1)
+coef_vector_equivalence(data_a, data_b, formula, delta, alpha = 0.05)
 }
 \arguments{
-\item{m_a}{logistic regression model \eqn{M_A}}
+\item{data_a}{logistic regression model \eqn{M_A}}
 
-\item{m_b}{logistic regression model \eqn{M_B}}
+\item{data_b}{logistic regression model \eqn{M_B}}
+
+\item{formula}{logistic regression formula}
+
+\item{delta}{equivalence sensitivity level \eqn{\delta_\beta}}
 
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
-
-\item{delta}{equivalence sensitivity level \eqn{\delta_\beta} (defaults to 1)}
 }
 \value{
 \describe{
-  \item{\code{test stat}}{Equivalence test statistic}
   \item{\code{critical value}}{level-\eqn{\alpha} critical value}
-  \item{\code{ncp}}{non-centrality parameter}
-  \item{\code{p_val}}{P-value for the test statistic}
-  \item{\code{df}}{degrees of freedom}
-  \item{\code{equivalence}}{are the coefficient vectors equivalent?
-       (boolean)}
 }
 }
 \description{
