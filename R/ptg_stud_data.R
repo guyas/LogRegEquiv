@@ -24,20 +24,24 @@
 
 #' Student Performance Data Set - female training data
 #'
+#' @seealso \code{ptg_stud_data}
 #'
 "ptg_stud_f_train"
 
 #' Student Performance Data Set - female testing data
 #'
+#' @seealso \code{ptg_stud_data}
 #'
 "ptg_stud_f_test"
 
 #' Student Performance Data Set - male training data
 #'
+#' @seealso \code{ptg_stud_data}
 #'
 "ptg_stud_m_train"
 
 #' Student Performance Data Set - male testing data
 #'
+#' @seealso \code{ptg_stud_data}
 #'
 "ptg_stud_m_test"

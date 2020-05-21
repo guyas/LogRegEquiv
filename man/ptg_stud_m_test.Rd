@@ -13,4 +13,7 @@ ptg_stud_m_test
 \description{
 Student Performance Data Set - male testing data
 }
+\seealso{
+\code{ptg_stud_data}
+}
 \keyword{datasets}

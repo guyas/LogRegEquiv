@@ -23,11 +23,13 @@ coef_vector_equivalence(data_a, data_b, formula, delta, alpha = 0.05)
 }
 }
 \description{
-This function takes two logistic regression models \eqn{M_A, M_B},
-    significance level \eqn{\alpha} and sensitivity level \eqn{\delta_B}.
-    It checks whether the coefficient vectors are equivalent.
+This function takes two datasets \eqn{X_A, X_B}, regression formula,
+    significance level \eqn{\alpha} and sensitivity level
+    \eqn{\delta_\beta} (either vector or scalar). It builds a logistic
+    regression model for each of the datasets and then checks whether the
+    obtained coefficient vectors are equivalent, using the
+    \code{beta_equivalence} function.
 }
-\keyword{beta}
+\keyword{coefficients}
 \keyword{equivalence}
-\keyword{equivalence,}
 \keyword{vector}

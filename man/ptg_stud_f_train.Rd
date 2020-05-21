@@ -13,4 +13,7 @@ ptg_stud_f_train
 \description{
 Student Performance Data Set - female training data
 }
+\seealso{
+\code{ptg_stud_data}
+}
 \keyword{datasets}
