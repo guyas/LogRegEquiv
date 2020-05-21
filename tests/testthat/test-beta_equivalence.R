@@ -123,7 +123,7 @@ test_that("beta_equivalence rejects mismatching formulae", {
                                        family = binomial(link = "logit"),
                                        data = ptg_stud_f_train,
                                        control = list(maxit = 20)))
-  model_male <- glm(formula = final_fail ~ .-1,
+  model_male <- glm(formula = final_fail ~ . - 1,
                     family = binomial(link = "logit"),
                     data = ptg_stud_m_train,
                     control = list(maxit = 20))
@@ -154,7 +154,7 @@ test_that("beta_equivalence rejects mismatching covariates #2", {
   model_formula <- "final_fail ~ ."
   model_female <- suppressWarnings(glm(formula = as.formula(model_formula),
                                        family = binomial(link = "logit"),
-                                       data = ptg_stud_f_train[,-4],
+                                       data = ptg_stud_f_train[, -4],
                                        control = list(maxit = 20)))
   model_male <- glm(formula = as.formula(model_formula),
                     family = binomial(link = "logit"),

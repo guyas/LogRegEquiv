@@ -26,7 +26,7 @@
 brier_equivalence <- function(model_a, model_b, test_data,
                               dv_index, delta, alpha = 0.05) {
   n <- nrow(test_data)
-  test_y <- test_data[,dv_index]
+  test_y <- test_data[, dv_index]
   pi_ac <- predict.glm(model_a, test_data, type = "response")
   pi_bc <- predict.glm(model_b, test_data, type = "response")
   bs_ac <- brier_score(test_y, pi_ac)

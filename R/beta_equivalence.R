@@ -3,8 +3,8 @@
 #' This function takes two logistic regression models \eqn{M_A, M_B},
 #'     sensitivity level \eqn{\delta_beta} and significance level \eqn{\alpha}.
 #'     It checks whether the coefficient vectors are equivalent.
-#' @param m_a logistic regression model \eqn{M_A}
-#' @param m_b logistic regression model \eqn{M_B}
+#' @param model_a logistic regression model \eqn{M_A}
+#' @param model_b logistic regression model \eqn{M_B}
 #' @param delta equivalence sensitivity level \eqn{\delta_\beta}. This could
 #'     either be a scalar or a vector with length matching the number of
 #'     ceofficients.
@@ -26,7 +26,7 @@ beta_equivalence <- function(model_a, model_b, delta, alpha = 0.05) {
       (model_b$family$family != "binomial")) {
     stop("Mismatching model families")
   }
-  if (model_a$formula != model_b$formula){
+  if (model_a$formula != model_b$formula) {
     stop("Mismatching regression formulae")
   }
 

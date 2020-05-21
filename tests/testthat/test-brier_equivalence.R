@@ -15,7 +15,7 @@ test_that("brier_equivalence works, female test data", {
   test_data <- ptg_stud_f_test
   n <- nrow(test_data)
   dv_index <- 30
-  y_test <- test_data[,dv_index]
+  y_test <- test_data[, dv_index]
   pi_hat_female <- predict.glm(model_female, test_data, type = "response")
   b_female <- (y_test - pi_hat_female)^2
   bs_female <- mean(b_female)
@@ -64,7 +64,7 @@ test_that("brier_equivalence works, male test data", {
   test_data <- ptg_stud_m_test
   n <- nrow(test_data)
   dv_index <- 30
-  y_test <- test_data[,dv_index]
+  y_test <- test_data[, dv_index]
   pi_hat_female <- predict.glm(model_female, test_data, type = "response")
   b_female <- (y_test - pi_hat_female)^2
   bs_female <- mean(b_female)
@@ -113,7 +113,7 @@ test_that("brier_equivalence works, male test data, delta=0.01", {
   test_data <- ptg_stud_m_test
   n <- nrow(test_data)
   dv_index <- 30
-  y_test <- test_data[,dv_index]
+  y_test <- test_data[, dv_index]
   pi_hat_female <- predict.glm(model_female, test_data, type = "response")
   b_female <- (y_test - pi_hat_female)^2
   bs_female <- mean(b_female)

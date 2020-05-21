@@ -15,6 +15,7 @@
 #' @export
 #' @importFrom stats qchisq pchisq
 
-coef_vector_equivalence <- function(data_a, data_b, formula, delta, alpha = 0.05) {
+coef_vector_equivalence <- function(data_a, data_b, formula, delta,
+                                    alpha = 0.05) {
 
 }

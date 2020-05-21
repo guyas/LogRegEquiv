@@ -9,7 +9,7 @@
 #' @keywords Brier
 #' @export
 #' @examples
-#' brier_score(seq(0.1, 1, 0.1), rbinom(10,1,seq(0.1, 1, 0.1)))
+#' brier_score(rbinom(10,1,seq(0.1, 1, 0.1)), seq(0.1, 1, 0.1))
 
 brier_score <- function(y, pi) {
   if (length(y) != length(pi)) {

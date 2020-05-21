@@ -7,15 +7,15 @@
 beta_equivalence(model_a, model_b, delta, alpha = 0.05)
 }
 \arguments{
+\item{model_a}{logistic regression model \eqn{M_A}}
+
+\item{model_b}{logistic regression model \eqn{M_B}}
+
 \item{delta}{equivalence sensitivity level \eqn{\delta_\beta}. This could
 either be a scalar or a vector with length matching the number of
 ceofficients.}
 
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
-
-\item{m_a}{logistic regression model \eqn{M_A}}
-
-\item{m_b}{logistic regression model \eqn{M_B}}
 }
 \value{
 \describe{
