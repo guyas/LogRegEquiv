@@ -1,6 +1,7 @@
 ---
 title: "LogRegEquiv Vignette"
 author: "Guy Ashiri-Prossner"
+date: "26.5.2020"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -11,10 +12,141 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  warning = FALSE
 )
 ```
 
+This package provides tools for assessing the differences between logistic 
+regression model-fits across sub-populations. For example, having data with
+sub-populations based on gender or native language may or may not require 
+separate models.
+
+Consider two sub-populations of Portuguese Language course students, with 
+29 covariates and an output variable indicating whether the student has failed 
+the course. These sub-populations differ by gender (M/F). These two 
+sub-populations provide two logistic regression models, which may or may not 
+be equivalent.
+
+The purpose of this vignette is to exemplify to usage of equivalence tests
+for different stages in the model: the linear coefficients, the vector of 
+per-example log odds ratio and the mean-square error of prediction.
+Each method provides a different aspect of possible model equivalence.
+
+The data used is taken from the Student Performance Data[^1]^,^[^2].
+
+[^1]: P. Cortez and A. Silva. Using Data Mining to Predict Secondary School Student Performance. In A. Brito and J. Teixeira Eds., Proceedings of 5th FUture BUsiness TEChnology Conference (FUBUTEC 2008) pp. 5-12, Porto, Portugal, April, 2008, EUROSIS, ISBN 978-9077381-39-7. See also <http://www3.dsi.uminho.pt/pcortez/student.pdf>
+[^2]: Data retrieved from [the UC Irvine Machine Learning Repository](https://archive.ics.uci.edu/ml/datasets/student+performance).
+
+
 ```{r setup}
 library(LogRegEquiv)
+```
+
+# Regression Coefficients Equivalence Testing
+
+The regression coefficient vectors provide us an insight to how a model
+describes the phenomenon. In our case, how is the binary variable `final_failure`
+affected by the covariates. When two models describe a phenomenon in a similar
+manner, descriptive equivalence is achieved.
+
+```{r model construction, echo=TRUE}
+formula <- "final_fail ~ ."
+female_model <- glm(formula = formula, family = binomial(link = "logit"),
+                    data = ptg_stud_f_train)
+male_model <- glm(formula = formula, family = binomial(link = "logit"),
+                    data = ptg_stud_m_train)
+```
+
+Denote $\delta_\beta$ as the maximal tolerated difference per coefficient, in this case
+$\delta_\beta=0.1$.
+
+```{r beta equivalence, echo=TRUE}
+delta_beta <- 0.1
+print(beta_equivalence(model_a = female_model,
+                       model_b = male_model,
+                       delta = delta_beta,
+                       alpha = 0.05))
+```
+
+It is possible to assess descriptive equivalence even without creating the models, just by providing the `coef_vector_equivalence` function a regression formula, two datasets and a `delta` argument:
+
+```{r coef vector equivalence, echo=TRUE}
+print(coef_vector_equivalence(data_a = ptg_stud_f_train,
+                              data_b = ptg_stud_m_train, 
+                              formula = formula,
+                              delta = delta_beta,
+                              alpha = 0.05))
+```
+
+It is also possible to use different $\delta_\beta$ value for each coefficient. In such case, the `delta` argument should be provided with a vector whose length matches the number of covariates in the model. Mind the intercept and the fact that categorical variables with $k\geq 3$ values are represented in the model by multiple variables. In this example the data has 29 covariates but they are represented by `r length(female_model$coefficients)` covariates in the model:
+
+```{r beta vectorial delta, echo=TRUE}
+set.seed(1)
+delta_beta_vec <- 0.01 * runif(39)
+print(beta_equivalence(model_a = female_model,
+                       model_b = male_model,
+                       delta = delta_beta_vec,
+                       alpha = 0.05))
+```
+
+
+# Log-Odds Equivalence Testing
+
+Assume we have an existing model $M^A$ based on population $A$. This is our *source*. Given a new *target* population $B$ of size $k$ and model $M^B$, we would like to check whether the source model fits the target population. We do so by comparing the log-odds produced by the models for the *target* population samples. When two models produce equivalent log-odds, individual predictive equivalence is achieved.
+
+The log-odds $\hat{\theta}_i=x_i^T \hat{\beta}$ provides us with an insight to the predicted variable $\hat{y}_i$'s stability - that is, how likely is $\hat{y}_i$ to change its value upon changes in the prediction model. It is less likely that $\hat{y}_i$ would change if $|\hat{\theta}_i|$ is large, since $\hat{y}_i$ takes its value directly from the sign of $\hat{\theta}_i$:
+$$\hat{y}_i=\left\{\begin{matrix} 1 & \hat{\theta}_i>0\\ 0 & \hat{\theta}_i<0 \end{matrix}\right.$$
+
+We would therefore like $\delta_\theta$ to be a bound on changes to the log-odds.
+Let us label sample $x_i$ as a *flip* if a change of $\delta_\theta$ to the log-odds causes $\hat{\theta}_i$ to change sign (which means a change in $\hat{y}_i$):
+$$sign(\hat{\theta}_i)\neq sign(\hat{\theta_i}+\delta_\theta)~~~ \vee~~~sign(\hat{\theta}_i)\neq sign(\hat{\theta}_i-\delta_\theta).$$
+Given the target dataset $X_B$, the target model $M^B$ and the source model $M^A$, all target samples whose log-odds is of smaller magnitude ($\hat{\theta}_i^B<\delta_\theta$) are considered as *flips*. We would like to control the ratio of target samples which are 
+flipping upon changing from $M^B$ to $M^A$. Let $\hat{\theta}^B$ be a vector of target log-odds and $r$ the allowed flips ratio, an appropriate $\delta_\theta$ is then obtained by taking the $r$^th^ quantile of $\left|\hat{\theta}^B\right|$.
+
+Using $r=0.05$, we get that both models provide equivalent log-odds for the female testing data:
+
+```{r theta equivalence female test, echo=TRUE}
+r <- 0.05
+print(theta_equivalence(model_a = female_model,
+                  model_b = male_model,
+                  test_data = ptg_stud_f_test,
+                  r = r,
+                  alpha = 0.05))
+```
+
+On the other hand, using $r=0.025$ we get that both models do not provide equivalent log-odds for the male testing data:
+
+```{r theta equivalence male test, echo=TRUE}
+r <- 0.025
+print(theta_equivalence(model_a = female_model,
+                  model_b = male_model,
+                  test_data = ptg_stud_m_test,
+                  r = r,
+                  alpha = 0.05))
+```
+
+
+# Brier Score Equivalence Testing
+
+The Brier score is reducing the assessment of the overall model performance into a single figure. Given models $M^A,M^B$ and a test set $X_C$ of size $k$, we can assess the equivalence of the Brier scores obtained by the models. As the Brier score is in the range $[0,1]$, the allowed difference $\delta_B$ should be manually selected from the range $[0.001, 0.5]$. As the Brier score tends to converge quickly, it is recommended to use $\delta_B \leq \frac{1}{2\sqrt{k}}$, where $k$ is the test set size.
+The `dv_index` variable indicates the column number of the dependent variable.
+
+```{r brier equivalence female test, echo=TRUE}
+testing_data <- ptg_stud_m_test
+delta_b <- 1 / (2 * sqrt(nrow(testing_data)))
+print(brier_equivalence(model_a = female_model, 
+                        model_b = male_model, 
+                        test_data = testing_data,
+                        dv_index = 30,
+                        delta = delta_b,
+                        alpha = 0.05))
+
+
+print(brier_equivalence(model_a = female_model, 
+                        model_b = male_model, 
+                        test_data = ptg_stud_f_test,
+                        dv_index = 30,
+                        delta = 0.1,
+                        alpha = 0.05))
 ```
