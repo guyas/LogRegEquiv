@@ -25,6 +25,7 @@ brier_equivalence(model_a, model_b, test_data, dv_index, delta, alpha = 0.05)
       Brier scores for the given test data? (boolean)}
   \item{\code{brier_score_ac}}{\eqn{M_A} Brier score on the testing data}
   \item{\code{brier_score_bc}}{\eqn{M_B} Brier score on the testing data}
+  \item{\code{diff_sd}}{SD of the Brier differences}
   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}

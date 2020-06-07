@@ -8,7 +8,7 @@
 #' @param delta equivalence sensitivity level \eqn{\delta_\beta}. This could
 #'     either be a scalar or a vector with length matching the number of
 #'     ceofficients.
-#' @param alpha significance level \eqn{\alpha} (defaults to 0.05)
+#' @param alpha significance level \eqn{\alpha}
 #' @return \describe{
 #'   \item{\code{equivalence}}{are the coefficient vectors equivalent?
 #'        (boolean)}
@@ -20,7 +20,7 @@
 #' @export
 #' @importFrom stats qchisq pchisq
 
-beta_equivalence <- function(model_a, model_b, delta, alpha = 0.05) {
+beta_equivalence <- function(model_a, model_b, delta, alpha) {
   if ((model_a$family$family != model_b$family$family) ||
       (model_a$family$family != "binomial") ||
       (model_b$family$family != "binomial")) {
@@ -70,7 +70,8 @@ beta_equivalence <- function(model_a, model_b, delta, alpha = 0.05) {
   return(list(equivalence = (test_stat < c_alpha),
               test_statistic = test_stat,
               critical_value = c_alpha,
-              ncp = ncp
+              ncp = ncp,
+              p_value = pchisq(test_stat, p, ncp)
             )
         )
 }
