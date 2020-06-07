@@ -22,6 +22,7 @@ test_that("beta_equivalence works with scalar", {
   ncp <-  t(d) %*% solve(cov_mat) %*% d
   crit_value <- qchisq(p = alpha, df = p, ncp = ncp)
   equiv <- (test_stat < crit_value)
+  pval <- pchisq(q = test_stat, df = p, ncp = ncp)
 
   be_out <- beta_equivalence(model_female, model_male, d, alpha)
 
@@ -29,6 +30,7 @@ test_that("beta_equivalence works with scalar", {
   expect_equal(be_out$test_statistic, test_stat)
   expect_equal(be_out$critical_value, crit_value)
   expect_equal(be_out$ncp, ncp)
+  expect_equal(be_out$p_value, pval)
 
 })
 
@@ -56,6 +58,7 @@ test_that("beta_equivalence works with vector", {
   ncp <-  t(d) %*% solve(cov_mat) %*% d
   crit_value <- qchisq(p = alpha, df = p, ncp = ncp)
   equiv <- (test_stat < crit_value)
+  pval <- pchisq(q = test_stat, df = p, ncp = ncp)
 
   be_out <- beta_equivalence(model_female, model_male, d, alpha)
 
@@ -63,6 +66,7 @@ test_that("beta_equivalence works with vector", {
   expect_equal(be_out$test_statistic, test_stat)
   expect_equal(be_out$critical_value, crit_value)
   expect_equal(be_out$ncp, ncp)
+  expect_equal(be_out$p_value, pval)
 
 })
 

@@ -4,7 +4,7 @@
 \alias{beta_equivalence}
 \title{beta_equivalence function}
 \usage{
-beta_equivalence(model_a, model_b, delta, alpha = 0.05)
+beta_equivalence(model_a, model_b, delta, alpha)
 }
 \arguments{
 \item{model_a}{logistic regression model \eqn{M_A}}
@@ -15,7 +15,7 @@ beta_equivalence(model_a, model_b, delta, alpha = 0.05)
 either be a scalar or a vector with length matching the number of
 ceofficients.}
 
-\item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
+\item{alpha}{significance level \eqn{\alpha}}
 }
 \value{
 \describe{

@@ -23,15 +23,17 @@ test_that("coef_vector_equivalence works", {
   ncp <-  t(d) %*% solve(cov_mat) %*% d
   crit_value <- qchisq(p = alpha, df = p, ncp = ncp)
   equiv <- (test_stat < crit_value)
+  pval <- pchisq(q = test_stat, df = p, ncp = ncp)
 
-  cve_out <- coef_vector_equivalence(data_a = ptg_stud_f_train,
+  cve_out <- suppressWarnings(coef_vector_equivalence(data_a = ptg_stud_f_train,
                                      data_b = ptg_stud_m_train,
                                      formula = model_formula,
                                      delta =  d,
-                                     alpha =  alpha)
+                                     alpha =  alpha))
 
-  expect_equal(cve_out$equivalence, equiv)
-  expect_equal(cve_out$test_statistic, test_stat)
-  expect_equal(cve_out$critical_value, crit_value)
-  expect_equal(cve_out$ncp, ncp)
+  expect_equal(cve_out$equivalence$equivalence, equiv)
+  expect_equal(cve_out$equivalence$test_statistic, test_stat)
+  expect_equal(cve_out$equivalence$critical_value, crit_value)
+  expect_equal(cve_out$equivalence$ncp, ncp)
+  expect_equal(cve_out$equivalence$p_value, pval)
 })

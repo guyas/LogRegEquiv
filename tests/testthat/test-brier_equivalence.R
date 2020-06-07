@@ -139,6 +139,7 @@ test_that("brier_equivalence works, male test data, delta=0.01", {
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
+  expect_equal(be_out$diff_sd, sqrt(var(d)))
   expect_equal(be_out$test_stat_l, t_stat_l)
   expect_equal(be_out$test_stat_u, t_stat_u)
   expect_equal(be_out$crit_val, threshold)

@@ -7,9 +7,9 @@
 coef_vector_equivalence(data_a, data_b, formula, delta, alpha = 0.05)
 }
 \arguments{
-\item{data_a}{logistic regression model \eqn{M_A}}
+\item{data_a}{dataset \eqn{X_A} for model \eqn{M_A}}
 
-\item{data_b}{logistic regression model \eqn{M_B}}
+\item{data_b}{dataset \eqn{X_B} for model \eqn{M_B}}
 
 \item{formula}{logistic regression formula}
 
@@ -18,9 +18,7 @@ coef_vector_equivalence(data_a, data_b, formula, delta, alpha = 0.05)
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
 }
 \value{
-\describe{
-  \item{\code{critical value}}{level-\eqn{\alpha} critical value}
-}
+
 }
 \description{
 This function takes two datasets \eqn{X_A, X_B}, regression formula,

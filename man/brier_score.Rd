@@ -4,12 +4,14 @@
 \alias{brier_score}
 \title{brier_score function}
 \usage{
-brier_score(y, pi)
+brier_score(y, pi, na.rm = FALSE)
 }
 \arguments{
 \item{y}{the obsrevations vector}
 
 \item{pi}{the predictions vector}
+
+\item{na.rm}{ignore NA? (optional)}
 }
 \value{
 The Brier score \eqn{\frac{1}{N}\sum_{i=1}^{N}{(y_i-\pi_i)^2}}
@@ -17,7 +19,8 @@ The Brier score \eqn{\frac{1}{N}\sum_{i=1}^{N}{(y_i-\pi_i)^2}}
 \description{
 This function takes a obsrevations vector \eqn{y} and matching
      predictions vector \eqn{\pi}. It returns the Brier score for the
-     predictions.
+     predictions. Unless specified otherwise, input containing NAs will
+     result with an NA.
 }
 \examples{
 brier_score(rbinom(10,1,seq(0.1, 1, 0.1)), seq(0.1, 1, 0.1))
