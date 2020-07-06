@@ -12,9 +12,9 @@
 #' @param delta equivalence sensitivity level \eqn{\delta_\beta}
 #' @param alpha significance level \eqn{\alpha} (defaults to 0.05)
 #' @return \describe{
-#'   \item{\code{equivalence}} the \code{beta_equivalence} function output}
-#'   \item{\code{model_a}} logistic regression model \eqn{M_A}}
-#'   \item{\code{model_b}} logistic regression model \eqn{M_B}}
+#'   \item{\code{equivalence}}{ the \code{beta_equivalence} function output}
+#'   \item{\code{model_a}}{ logistic regression model \eqn{M_A}}
+#'   \item{\code{model_b}}{ logistic regression model \eqn{M_B}}
 #' }
 #' @keywords coefficients vector equivalence
 #' @export

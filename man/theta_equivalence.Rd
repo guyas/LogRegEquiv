@@ -26,6 +26,7 @@ theta_equivalence(model_a, model_b, test_data, r = 0.1, alpha = 0.05)
   \item{\code{xi_bar}}{Mean \eqn{\xi} value for the test}
   \item{\code{delta_theta}}{Calculated sensitivity level for the equivalence
       test}
+  \item{\code{p_value}}{P-value}
 }
 }
 \description{

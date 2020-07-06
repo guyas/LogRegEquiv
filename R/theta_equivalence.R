@@ -17,6 +17,7 @@
 #'   \item{\code{xi_bar}}{Mean \eqn{\xi} value for the test}
 #'   \item{\code{delta_theta}}{Calculated sensitivity level for the equivalence
 #'       test}
+#'   \item{\code{p_value}}{P-value}
 #' }
 #' @keywords theta equivalence, log-odds equivalence
 #' @export
@@ -37,6 +38,7 @@ theta_equivalence <- function(model_a, model_b, test_data, r = 0.1,
               test_statistic = test_stat,
               critical_value = crit_value,
               xi_bar = mean(xi),
-              delta_theta = delta
+              delta_theta = delta,
+              p_value = pt(test_stat, n - 1)
               ))
 }

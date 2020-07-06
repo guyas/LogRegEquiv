@@ -18,7 +18,11 @@ coef_vector_equivalence(data_a, data_b, formula, delta, alpha = 0.05)
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
 }
 \value{
-
+\describe{
+  \item{\code{equivalence}}{ the \code{beta_equivalence} function output}
+  \item{\code{model_a}}{ logistic regression model \eqn{M_A}}
+  \item{\code{model_b}}{ logistic regression model \eqn{M_B}}
+}
 }
 \description{
 This function takes two datasets \eqn{X_A, X_B}, regression formula,

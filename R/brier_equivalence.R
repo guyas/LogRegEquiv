@@ -19,10 +19,12 @@
 #'   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
 #'   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
 #'   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
+#'   \item{\code{p_value_l}}{P-value for \eqn{t_L}}
+#'   \item{\code{p_value_u}}{P-value for \eqn{t_U}}
 #' }
 #' @keywords brier equivalence
 #' @export
-#' @importFrom stats predict.glm var qt
+#' @importFrom stats predict.glm var qt pt
 
 brier_equivalence <- function(model_a, model_b, test_data,
                               dv_index, delta, alpha = 0.05) {
@@ -47,7 +49,9 @@ brier_equivalence <- function(model_a, model_b, test_data,
     diff_sd = sd(d),
     test_stat_l = test_stat_l,
     test_stat_u = test_stat_u,
-    crit_val = equivalence_threshold
+    crit_val = equivalence_threshold,
+    p_value_l = pchisq(test_stat_l, n - 1),
+    p_value_u = pchisq(test_stat_u, n - 1)
     )
   )
 }

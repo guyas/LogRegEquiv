@@ -29,6 +29,8 @@ brier_equivalence(model_a, model_b, test_data, dv_index, delta, alpha = 0.05)
   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
+  \item{\code{p_value_l}}{P-value for \eqn{t_L}}
+  \item{\code{p_value_u}}{P-value for \eqn{t_U}}
 }
 }
 \description{

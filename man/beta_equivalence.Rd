@@ -24,6 +24,7 @@ ceofficients.}
   \item{\code{test_statistic}}{Equivalence test statistic}
   \item{\code{critical value}}{a level-\eqn{\alpha} critical value}
   \item{\code{ncp}}{non-centrality parameter}
+  \item{\code{p_value}}{P-value}
 }
 }
 \description{
