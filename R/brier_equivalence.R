@@ -50,7 +50,7 @@ brier_equivalence <- function(model_a, model_b, test_data,
     test_stat_l = test_stat_l,
     test_stat_u = test_stat_u,
     crit_val = equivalence_threshold,
-    p_value_l = pchisq(test_stat_l, n - 1),
+    p_value_l = pchisq(test_stat_l, n - 1, lower.tail = FALSE),
     p_value_u = pchisq(test_stat_u, n - 1)
     )
   )

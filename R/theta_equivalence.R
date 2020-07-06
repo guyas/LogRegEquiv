@@ -39,6 +39,6 @@ theta_equivalence <- function(model_a, model_b, test_data, r = 0.1,
               critical_value = crit_value,
               xi_bar = mean(xi),
               delta_theta = delta,
-              p_value = pt(test_stat, n - 1)
+              p_value = pt(test_stat, n - 1, lower.tail = FALSE)
               ))
 }
