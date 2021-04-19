@@ -1,4 +1,4 @@
-test_that("brier_equivalence works, female test data", {
+test_that("aggregated_predictive_equivalence works, female test data", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -36,7 +36,7 @@ test_that("brier_equivalence works, female test data", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- brier_equivalence(model_female, model_male, test_data, dv_index,
+  be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
                               delta, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
@@ -47,7 +47,7 @@ test_that("brier_equivalence works, female test data", {
 })
 
 
-test_that("brier_equivalence works, male test data", {
+test_that("aggregated_predictive_equivalence works, male test data", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -85,7 +85,7 @@ test_that("brier_equivalence works, male test data", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- brier_equivalence(model_female, model_male, test_data, dv_index,
+  be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
                               delta, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
@@ -96,7 +96,7 @@ test_that("brier_equivalence works, male test data", {
 })
 
 
-test_that("brier_equivalence works, male test data, delta=0.01", {
+test_that("aggregated_predictive_equivalence works, male test data, delta=0.01", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -134,7 +134,7 @@ test_that("brier_equivalence works, male test data, delta=0.01", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- brier_equivalence(model_female, model_male, test_data, dv_index,
+  be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
                               delta, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)

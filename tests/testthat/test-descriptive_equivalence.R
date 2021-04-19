@@ -1,4 +1,4 @@
-test_that("coef_vector_equivalence works", {
+test_that("descriptive_equivalence works", {
   "ptg_stud_f_train"
   "ptg_stud_m_train"
 
@@ -25,7 +25,7 @@ test_that("coef_vector_equivalence works", {
   equiv <- (test_stat < crit_value)
   pval <- pchisq(q = test_stat, df = p, ncp = ncp)
 
-  cve_out <- suppressWarnings(coef_vector_equivalence(data_a = ptg_stud_f_train,
+  cve_out <- suppressWarnings(descriptive_equivalence(data_a = ptg_stud_f_train,
                                      data_b = ptg_stud_m_train,
                                      formula = model_formula,
                                      delta =  d,

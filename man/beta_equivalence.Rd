@@ -29,7 +29,7 @@ ceofficients.}
 }
 \description{
 This function takes two logistic regression models \eqn{M_A, M_B},
-    sensitivity level \eqn{\delta_beta} and significance level \eqn{\alpha}.
+    sensitivity level \eqn{\delta_\beta} and significance level \eqn{\alpha}.
     It checks whether the coefficient vectors are equivalent.
 }
 \keyword{beta}

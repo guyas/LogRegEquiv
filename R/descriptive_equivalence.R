@@ -1,4 +1,4 @@
-#' coef_vector_equivalence function
+#' descriptive_equivalence function
 #'
 #' This function takes two datasets \eqn{X_A, X_B}, regression formula,
 #'     significance level \eqn{\alpha} and sensitivity level
@@ -20,7 +20,7 @@
 #' @export
 #' @importFrom stats glm binomial as.formula
 
-coef_vector_equivalence <- function(data_a, data_b, formula, delta,
+descriptive_equivalence <- function(data_a, data_b, formula, delta,
                                     alpha = 0.05) {
   model_a <- glm(formula = as.formula(formula),
                  family = binomial(link = "logit"),

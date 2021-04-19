@@ -1,7 +1,7 @@
 ---
 title: "LogRegEquiv Vignette"
 author: "Guy Ashiri-Prossner"
-date: "26.5.2020"
+date: "19.4.2021"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -43,7 +43,7 @@ The data used is taken from the Student Performance Data[^1]^,^[^2].
 library(LogRegEquiv)
 ```
 
-# Regression Coefficients Equivalence Testing
+# Descriptive Equivalence Testing
 
 The regression coefficient vectors provide us an insight to how a model
 describes the phenomenon. In our case, how is the binary variable `final_failure`
@@ -69,10 +69,10 @@ print(beta_equivalence(model_a = female_model,
                        alpha = 0.05))
 ```
 
-It is possible to assess descriptive equivalence even without creating the models, just by providing the `coef_vector_equivalence` function a regression formula, two datasets and a `delta` argument:
+It is possible to assess descriptive equivalence even without creating the models, just by providing the `descriptive_equivalence` function a regression formula, two datasets and a `delta` argument:
 
 ```{r coef vector equivalence, echo=TRUE}
-print(coef_vector_equivalence(data_a = ptg_stud_f_train,
+print(descriptive_equivalence(data_a = ptg_stud_f_train,
                               data_b = ptg_stud_m_train, 
                               formula = formula,
                               delta = delta_beta,
@@ -91,7 +91,7 @@ print(beta_equivalence(model_a = female_model,
 ```
 
 
-# Log-Odds Equivalence Testing
+# Individual Predictive Equivalence Testing
 
 Assume we have an existing model $M^A$ based on population $A$. This is our *source*. Given a new *target* population $B$ of size $k$ and model $M^B$, we would like to check whether the source model fits the target population. We do so by comparing the log-odds produced by the models for the *target* population samples. When two models produce equivalent log-odds, individual predictive equivalence is achieved.
 
@@ -106,9 +106,9 @@ flipping upon changing from $M^B$ to $M^A$. Let $\hat{\theta}^B$ be a vector of 
 
 Using $r=0.05$, we get that both models provide equivalent log-odds for the female testing data:
 
-```{r theta equivalence female test, echo=TRUE}
+```{r individual predictive equivalence female test, echo=TRUE}
 r <- 0.05
-print(theta_equivalence(model_a = female_model,
+print(individual_predictive_equivalence(model_a = female_model,
                   model_b = male_model,
                   test_data = ptg_stud_f_test,
                   r = r,
@@ -117,9 +117,9 @@ print(theta_equivalence(model_a = female_model,
 
 On the other hand, using $r=0.025$ we get that both models do not provide equivalent log-odds for the male testing data:
 
-```{r theta equivalence male test, echo=TRUE}
+```{r individual predictive equivalence male test, echo=TRUE}
 r <- 0.025
-print(theta_equivalence(model_a = female_model,
+print(individual_predictive_equivalence(model_a = female_model,
                   model_b = male_model,
                   test_data = ptg_stud_m_test,
                   r = r,
@@ -127,15 +127,15 @@ print(theta_equivalence(model_a = female_model,
 ```
 
 
-# Brier Score Equivalence Testing
+# Aggregated Predictive Equivalence Testing
 
-The Brier score is reducing the assessment of the overall model performance into a single figure. Given models $M^A,M^B$ and a test set $X_C$ of size $k$, we can assess the equivalence of the Brier scores obtained by the models. As the Brier score is in the range $[0,1]$, the allowed difference $\delta_B$ should be manually selected from the range $[0.001, 0.5]$. As the Brier score tends to converge quickly, it is recommended to use $\delta_B \leq \frac{1}{2\sqrt{k}}$, where $k$ is the test set size.
+The Brier score is reducing the assessment of the overall model performance into a single figure. Given models $M^A,M^B$ and a test set $X_C$ of size $m$, we can assess the equivalence of the Brier scores obtained by the models. As the Brier score is in the range $[0,1]$, the allowed difference $\delta_B$ should be manually selected from the range $[0.001, 0.5]$. As the Brier score tends to converge quickly, it is recommended to use $\delta_B \leq \frac{1}{2\sqrt{m}}$, where $m$ is the test set size.
 The `dv_index` variable indicates the column number of the dependent variable.
 
-```{r brier equivalence female test, echo=TRUE}
+```{r aggregated predictive equivalence female test, echo=TRUE}
 testing_data <- ptg_stud_m_test
 delta_b <- 1 / (2 * sqrt(nrow(testing_data)))
-print(brier_equivalence(model_a = female_model, 
+print(aggregated_predictive_equivalence(model_a = female_model, 
                         model_b = male_model, 
                         test_data = testing_data,
                         dv_index = 30,
@@ -143,7 +143,7 @@ print(brier_equivalence(model_a = female_model,
                         alpha = 0.05))
 
 
-print(brier_equivalence(model_a = female_model, 
+print(aggregated_predictive_equivalence(model_a = female_model, 
                         model_b = male_model, 
                         test_data = ptg_stud_f_test,
                         dv_index = 30,
