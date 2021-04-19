@@ -15,8 +15,7 @@
 #'   \item{\code{test_statistic}}{The test statistic}
 #'   \item{\code{critical_value}}{a level-\eqn{\alpha} critical value the test}
 #'   \item{\code{xi_bar}}{Mean \eqn{\xi} value for the test}
-#'   \item{\code{delta_theta}}{Calculated sensitivity level for the equivalence
-#'       test}
+#'   \item{\code{delta_theta}}{Calculated equivalence parameter}
 #'   \item{\code{p_value}}{P-value}
 #' }
 #' @keywords theta equivalence, log-odds equivalence

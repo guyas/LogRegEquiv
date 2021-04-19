@@ -8,8 +8,8 @@
 #' @param model_b logistic regression model \eqn{M_B}
 #' @param test_data testing dataset
 #' @param dv_index column number of the dependent variable
-#' @param delta equivalence sensitivity level \eqn{\delta_B}
 #' @param alpha significance level \eqn{\alpha} (defaults to 0.05)
+#' @param t acceptable tolerance level (defaults to 0.1)
 #' @return \describe{
 #'   \item{\code{equivalence}}{Are models \eqn{M_A,M_B} producing equivalent
 #'       Brier scores for the given test data? (boolean)}
@@ -19,6 +19,7 @@
 #'   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
 #'   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
 #'   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
+#'   \item{\code{delta_B}}{Calculated equivalence parameter}
 #'   \item{\code{p_value_l}}{P-value for \eqn{t_L}}
 #'   \item{\code{p_value_u}}{P-value for \eqn{t_U}}
 #' }
@@ -27,8 +28,8 @@
 #' @importFrom stats predict.glm var qt pt
 
 aggregated_predictive_equivalence <- function(model_a, model_b, test_data,
-                              dv_index, delta, alpha = 0.05) {
-  n <- nrow(test_data)
+                              dv_index, alpha = 0.05, t = 0.1) {
+  m <- nrow(test_data)
   test_y <- test_data[, dv_index]
   pi_ac <- predict.glm(model_a, test_data, type = "response")
   pi_bc <- predict.glm(model_b, test_data, type = "response")
@@ -37,9 +38,11 @@ aggregated_predictive_equivalence <- function(model_a, model_b, test_data,
   b_ac <- (pi_ac - test_y)^2
   b_bc <- (pi_bc - test_y)^2
   d <- b_ac - b_bc
-  test_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
-  test_stat_u <- sqrt(n) * (mean(d) - delta) / sqrt(var(d))
-  equivalence_threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
+  b.abs <- abs(test_y - pi_ac)
+  delta <- (2 * t) * mean(b.abs) - t^2
+  test_stat_l <- sqrt(m) * (mean(d) + delta) / sqrt(var(d))
+  test_stat_u <- sqrt(m) * (mean(d) - delta) / sqrt(var(d))
+  equivalence_threshold <- qt(1 - alpha, df = (m - 1), lower.tail = T)
   bse_left <- (equivalence_threshold < test_stat_l)
   bse_right <- (test_stat_u < -equivalence_threshold)
   return(list(
@@ -50,8 +53,9 @@ aggregated_predictive_equivalence <- function(model_a, model_b, test_data,
     test_stat_l = test_stat_l,
     test_stat_u = test_stat_u,
     crit_val = equivalence_threshold,
-    p_value_l = pchisq(test_stat_l, n - 1, lower.tail = FALSE),
-    p_value_u = pchisq(test_stat_u, n - 1)
+    delta_B = delta,
+    p_value_l = pchisq(test_stat_l, m - 1, lower.tail = FALSE),
+    p_value_u = pchisq(test_stat_u, m - 1)
     )
   )
 }

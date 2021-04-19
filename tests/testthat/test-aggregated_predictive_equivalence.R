@@ -26,7 +26,8 @@ test_that("aggregated_predictive_equivalence works, female test data", {
 
   d <- b_female - b_male
 
-  delta <- 0.1
+  t <- 0.1
+  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t - t^2
   alpha <- 0.05
 
   t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
@@ -37,7 +38,7 @@ test_that("aggregated_predictive_equivalence works, female test data", {
   equivalence <- (equiv_left && equiv_right)
 
   be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
-                              delta, alpha)
+                                              alpha, t)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
@@ -75,7 +76,8 @@ test_that("aggregated_predictive_equivalence works, male test data", {
 
   d <- b_female - b_male
 
-  delta <- 0.1
+  t <- 0.1
+  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t - t^2
   alpha <- 0.05
 
   t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
@@ -86,7 +88,7 @@ test_that("aggregated_predictive_equivalence works, male test data", {
   equivalence <- (equiv_left && equiv_right)
 
   be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
-                              delta, alpha)
+                                              alpha, t)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
@@ -96,7 +98,7 @@ test_that("aggregated_predictive_equivalence works, male test data", {
 })
 
 
-test_that("aggregated_predictive_equivalence works, male test data, delta=0.01", {
+test_that("aggregated_predictive_equivalence works, male test data, t=0.01", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -124,7 +126,8 @@ test_that("aggregated_predictive_equivalence works, male test data, delta=0.01",
 
   d <- b_female - b_male
 
-  delta <- 0.01
+  t <- 0.01
+  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t - t^2
   alpha <- 0.05
 
   t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
@@ -135,7 +138,7 @@ test_that("aggregated_predictive_equivalence works, male test data, delta=0.01",
   equivalence <- (equiv_left && equiv_right)
 
   be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
-                              delta, alpha)
+                                              alpha, t)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
