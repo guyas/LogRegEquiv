@@ -37,8 +37,8 @@ test_that("aggregated_predictive_equivalence works, female test data", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
-                                              alpha, t)
+  be_out <- aggregated_predictive_equivalence(model_female, model_male,
+                                              test_data, dv_index, t, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
@@ -87,8 +87,8 @@ test_that("aggregated_predictive_equivalence works, male test data", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
-                                              alpha, t)
+  be_out <- aggregated_predictive_equivalence(model_female, model_male,
+                                              test_data, dv_index, t, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
@@ -137,8 +137,8 @@ test_that("aggregated_predictive_equivalence works, male test data, t=0.01", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- aggregated_predictive_equivalence(model_female, model_male, test_data, dv_index,
-                                              alpha, t)
+  be_out <- aggregated_predictive_equivalence(model_female, model_male,
+                                              test_data, dv_index, t, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)

@@ -9,8 +9,8 @@ aggregated_predictive_equivalence(
   model_b,
   test_data,
   dv_index,
-  alpha = 0.05,
-  t = 0.1
+  t = 0.1,
+  alpha = 0.05
 )
 }
 \arguments{
@@ -22,9 +22,9 @@ aggregated_predictive_equivalence(
 
 \item{dv_index}{column number of the dependent variable}
 
-\item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
-
 \item{t}{acceptable tolerance level (defaults to 0.1)}
+
+\item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
 }
 \value{
 \describe{
@@ -36,7 +36,7 @@ aggregated_predictive_equivalence(
   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
-  \item{\code{delta_B}}{Calculated equivalence parameter}
+  \item{\code{t}}{Calculated equivalence parameter}
   \item{\code{p_value_l}}{P-value for \eqn{t_L}}
   \item{\code{p_value_u}}{P-value for \eqn{t_U}}
 }

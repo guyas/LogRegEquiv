@@ -139,14 +139,14 @@ print(aggregated_predictive_equivalence(model_a = female_model,
                         model_b = male_model, 
                         test_data = testing_data,
                         dv_index = 30,
-                        alpha = 0.05,
-                        t = delta_b))
+                        t = delta_b,
+                        alpha = 0.05))
 
 
 print(aggregated_predictive_equivalence(model_a = female_model, 
                         model_b = male_model, 
                         test_data = ptg_stud_f_test,
                         dv_index = 30,
-                        alpha = 0.05,
-                        t = 0.1))
+                        t = 0.1,
+                        alpha = 0.05))
 ```

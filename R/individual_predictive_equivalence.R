@@ -7,8 +7,8 @@
 #' @param model_a logistic regression model \eqn{M_A}
 #' @param model_b logistic regression model \eqn{M_B}
 #' @param test_data testing dataset
-#' @param alpha significance level \eqn{\alpha} (defaults to 0.05)
 #' @param r ratio of allowed 'flips' (defaults to 0.1)
+#' @param alpha significance level \eqn{\alpha} (defaults to 0.05)
 #' @return \describe{
 #'   \item{\code{equivalence}}{Are models \eqn{M_A,M_B} producing equivalent
 #'       log-odds for the given test data? (boolean)}
@@ -22,8 +22,8 @@
 #' @export
 #' @importFrom stats predict.glm quantile sd qt pt
 
-individual_predictive_equivalence <- function(model_a, model_b, test_data, r = 0.1,
-                              alpha = 0.05) {
+individual_predictive_equivalence <- function(model_a, model_b, test_data,
+                                              r = 0.1, alpha = 0.05) {
   n <- nrow(test_data)
   theta_ac <- predict.glm(model_a, test_data)
   theta_bc <- predict.glm(model_b, test_data)
