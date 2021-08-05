@@ -31,13 +31,13 @@ individual_predictive_equivalence <- function(model_a, model_b, test_data,
 
   xi <- abs(theta_ac - theta_bc)
   test_stat <- (mean(xi) - delta) / (sd(xi) / sqrt(n))
-  crit_value <- qt(alpha, df = n - 1, lower.tail = FALSE)
+  crit_value <- qt(alpha, df = n - 1, lower.tail = TRUE)
   return(list(
               equivalence = (test_stat < crit_value),
               test_statistic = test_stat,
               critical_value = crit_value,
               xi_bar = mean(xi),
               delta_theta = delta,
-              p_value = pt(test_stat, n - 1, lower.tail = FALSE)
+              p_value = pt(test_stat, n - 1, lower.tail = TRUE)
               ))
 }

@@ -21,7 +21,7 @@ test_that("individual_predictive_equivalence works, female test data", {
   delta <- as.numeric(quantile(abs(theta_female), r))
   xi <- abs(theta_female - theta_male)
   t_stat <- (mean(xi) - delta) / (sd(xi) / sqrt(n))
-  crit_value <- qt(alpha, df = n - 1, lower.tail = FALSE)
+  crit_value <- qt(alpha, df = n - 1, lower.tail = TRUE)
   equiv <- (t_stat < crit_value)
   te_out <- individual_predictive_equivalence(model_female, model_male,
                                               test_data, r, alpha)
@@ -55,7 +55,7 @@ test_that("individual_predictive_equivalence works, male test data", {
   delta <- as.numeric(quantile(abs(theta_male), r))
   xi <- abs(theta_female - theta_male)
   t_stat <- (mean(xi) - delta) / (sd(xi) / sqrt(n))
-  crit_value <- qt(alpha, df = n - 1, lower.tail = FALSE)
+  crit_value <- qt(alpha, df = n - 1, lower.tail = TRUE)
   equiv <- (t_stat < crit_value)
   te_out <- individual_predictive_equivalence(model_male, model_female,
                                               test_data, r, alpha)
