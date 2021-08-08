@@ -1,4 +1,4 @@
-#' aggregated_predictive_equivalence function
+#' aggregated_predictive_equiv function
 #'
 #' This function takes two logistic regression models \eqn{M_A, M_B},
 #'     test data, significance level \eqn{\alpha} and sensitivity level
@@ -27,7 +27,7 @@
 #' @export
 #' @importFrom stats predict.glm var qt pt
 
-aggregated_predictive_equivalence <- function(model_a, model_b, test_data,
+aggregated_predictive_equiv <- function(model_a, model_b, test_data,
                               dv_index, t = 0.1, alpha = 0.05) {
   m <- nrow(test_data)
   test_y <- test_data[, dv_index]

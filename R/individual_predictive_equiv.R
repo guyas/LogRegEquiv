@@ -1,4 +1,4 @@
-#' individual_predictive_equivalence function
+#' individual_predictive_equiv function
 #'
 #' This function takes two logistic regression models \eqn{M_A, M_B},
 #'     test data, significance level \eqn{\alpha} and allowed flips ratio
@@ -22,7 +22,7 @@
 #' @export
 #' @importFrom stats predict.glm quantile sd qt pt
 
-individual_predictive_equivalence <- function(model_a, model_b, test_data,
+individual_predictive_equiv <- function(model_a, model_b, test_data,
                                               r = 0.1, alpha = 0.05) {
   n <- nrow(test_data)
   theta_ac <- predict.glm(model_a, test_data)

@@ -1,7 +1,7 @@
 ---
 title: "LogRegEquiv Vignette"
 author: "Guy Ashiri-Prossner"
-date: "19.4.2021"
+date: "8.8.2021"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -69,10 +69,10 @@ print(beta_equivalence(model_a = female_model,
                        alpha = 0.05))
 ```
 
-It is possible to assess descriptive equivalence even without creating the models, just by providing the `descriptive_equivalence` function a regression formula, two datasets and a `delta` argument:
+It is possible to assess descriptive equivalence even without creating the models, just by providing the `descriptive_equiv` function a regression formula, two datasets and a `delta` argument:
 
 ```{r coef vector equivalence, echo=TRUE}
-print(descriptive_equivalence(data_a = ptg_stud_f_train,
+print(descriptive_equiv(data_a = ptg_stud_f_train,
                               data_b = ptg_stud_m_train, 
                               formula = formula,
                               delta = delta_beta,
@@ -95,20 +95,18 @@ print(beta_equivalence(model_a = female_model,
 
 Assume we have an existing model $M^A$ based on population $A$. This is our *source*. Given a new *target* population $B$ of size $k$ and model $M^B$, we would like to check whether the source model fits the target population. We do so by comparing the log-odds produced by the models for the *target* population samples. When two models produce equivalent log-odds, individual predictive equivalence is achieved.
 
-The log-odds $\hat{\theta}_i=x_i^T \hat{\beta}$ provides us with an insight to the predicted variable $\hat{y}_i$'s stability - that is, how likely is $\hat{y}_i$ to change its value upon changes in the prediction model. It is less likely that $\hat{y}_i$ would change if $|\hat{\theta}_i|$ is large, since $\hat{y}_i$ takes its value directly from the sign of $\hat{\theta}_i$:
-$$\hat{y}_i=\left\{\begin{matrix} 1 & \hat{\theta}_i>0\\ 0 & \hat{\theta}_i<0 \end{matrix}\right.$$
-
-We would therefore like $\delta_\theta$ to be a bound on changes to the log-odds.
-Let us label sample $x_i$ as a *flip* if a change of $\delta_\theta$ to the log-odds causes $\hat{\theta}_i$ to change sign (which means a change in $\hat{y}_i$):
-$$sign(\hat{\theta}_i)\neq sign(\hat{\theta_i}+\delta_\theta)~~~ \vee~~~sign(\hat{\theta}_i)\neq sign(\hat{\theta}_i-\delta_\theta).$$
-Given the target dataset $X_B$, the target model $M^B$ and the source model $M^A$, all target samples whose log-odds is of smaller magnitude ($\hat{\theta}_i^B<\delta_\theta$) are considered as *flips*. We would like to control the ratio of target samples which are 
-flipping upon changing from $M^B$ to $M^A$. Let $\hat{\theta}^B$ be a vector of target log-odds and $r$ the allowed flips ratio, an appropriate $\delta_\theta$ is then obtained by taking the $r$^th^ quantile of $\left|\hat{\theta}^B\right|$.
+To set the indifference level for the individual predictive equivalence $\delta_\theta$, we propose looking 
+at the distances between the estimated log odds and the classification threshold. 
+Consider $\{\hat{\theta}_1,...,\hat{\theta}_m\}$ to be the $m$ estimated log-odd values for the test population for the original model, meaning that these are predictions for a test set of population A $X_{test}^A$ using model $M_A$. 
+In a calibrated logistic regression, the classification of the $i$th subject by the model ($\hat{y}_i$) is 1 when $\hat{\theta}_i >0$ and 0 otherwise. The absolute log-odds $\left| \hat{\theta}_i \right|$ is minimal change to the log-odds that could change to the classification.
+We therefore propose setting the threshold $\delta_\theta$ to be a small quantile $r$ (say $r = 0.1$) of the observed distribution of absolute log-odds 
+\[\delta_\theta =  \left| \hat{\theta}\right|_{(\lceil r \cdot m \rceil)}. \]
 
 Using $r=0.05$, we get that both models provide equivalent log-odds for the female testing data:
 
 ```{r individual predictive equivalence female test, echo=TRUE}
 r <- 0.05
-print(individual_predictive_equivalence(model_a = female_model,
+print(individual_predictive_equiv(model_a = female_model,
                   model_b = male_model,
                   test_data = ptg_stud_f_test,
                   r = r,
@@ -119,7 +117,7 @@ On the other hand, using $r=0.025$ we get that both models do not provide equiva
 
 ```{r individual predictive equivalence male test, echo=TRUE}
 r <- 0.025
-print(individual_predictive_equivalence(model_a = female_model,
+print(individual_predictive_equiv(model_a = female_model,
                   model_b = male_model,
                   test_data = ptg_stud_m_test,
                   r = r,
@@ -135,7 +133,7 @@ The `dv_index` variable indicates the column number of the dependent variable.
 ```{r aggregated predictive equivalence female test, echo=TRUE}
 testing_data <- ptg_stud_m_test
 delta_b <- 1 / (2 * sqrt(nrow(testing_data)))
-print(aggregated_predictive_equivalence(model_a = female_model, 
+print(aggregated_predictive_equiv(model_a = female_model, 
                         model_b = male_model, 
                         test_data = testing_data,
                         dv_index = 30,
@@ -143,7 +141,7 @@ print(aggregated_predictive_equivalence(model_a = female_model,
                         alpha = 0.05))
 
 
-print(aggregated_predictive_equivalence(model_a = female_model, 
+print(aggregated_predictive_equiv(model_a = female_model, 
                         model_b = male_model, 
                         test_data = ptg_stud_f_test,
                         dv_index = 30,

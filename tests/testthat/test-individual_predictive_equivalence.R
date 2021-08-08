@@ -1,4 +1,4 @@
-test_that("individual_predictive_equivalence works, female test data", {
+test_that("individual_predictive_equiv works, female test data", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -23,7 +23,7 @@ test_that("individual_predictive_equivalence works, female test data", {
   t_stat <- (mean(xi) - delta) / (sd(xi) / sqrt(n))
   crit_value <- qt(alpha, df = n - 1, lower.tail = TRUE)
   equiv <- (t_stat < crit_value)
-  te_out <- individual_predictive_equivalence(model_female, model_male,
+  te_out <- individual_predictive_equiv(model_female, model_male,
                                               test_data, r, alpha)
   expect_equal(te_out$equivalence, equiv)
   expect_equal(te_out$test_statistic, t_stat)
@@ -32,7 +32,7 @@ test_that("individual_predictive_equivalence works, female test data", {
   expect_equal(te_out$delta_theta, delta)
 })
 
-test_that("individual_predictive_equivalence works, male test data", {
+test_that("individual_predictive_equiv works, male test data", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -57,7 +57,7 @@ test_that("individual_predictive_equivalence works, male test data", {
   t_stat <- (mean(xi) - delta) / (sd(xi) / sqrt(n))
   crit_value <- qt(alpha, df = n - 1, lower.tail = TRUE)
   equiv <- (t_stat < crit_value)
-  te_out <- individual_predictive_equivalence(model_male, model_female,
+  te_out <- individual_predictive_equiv(model_male, model_female,
                                               test_data, r, alpha)
   expect_equal(te_out$equivalence, equiv)
   expect_equal(te_out$test_statistic, t_stat)
