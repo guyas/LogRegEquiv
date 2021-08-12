@@ -17,7 +17,6 @@
 #'   \item{\code{ncp}}{non-centrality parameter}
 #'   \item{\code{p_value}}{P-value}
 #' }
-#' @keywords beta equivalence, vector equivalence
 #' @export
 #' @importFrom stats qchisq pchisq
 

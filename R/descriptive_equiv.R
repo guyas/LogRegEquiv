@@ -16,7 +16,6 @@
 #'   \item{\code{model_a}}{ logistic regression model \eqn{M_A}}
 #'   \item{\code{model_b}}{ logistic regression model \eqn{M_B}}
 #' }
-#' @keywords coefficients vector equivalence
 #' @export
 #' @importFrom stats glm binomial as.formula
 

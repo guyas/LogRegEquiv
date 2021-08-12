@@ -18,7 +18,6 @@
 #'   \item{\code{delta_theta}}{Calculated equivalence parameter}
 #'   \item{\code{p_value}}{P-value}
 #' }
-#' @keywords theta equivalence, log-odds equivalence
 #' @export
 #' @importFrom stats predict.glm quantile sd qt pt
 

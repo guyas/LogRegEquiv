@@ -25,4 +25,4 @@ This function takes a obsrevations vector \eqn{y} and matching
 \examples{
 brier_score(rbinom(10,1,seq(0.1, 1, 0.1)), seq(0.1, 1, 0.1))
 }
-\keyword{Brier}
+\keyword{Brier-score}

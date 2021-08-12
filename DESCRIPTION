@@ -1,12 +1,12 @@
 Package: LogRegEquiv
-Version: 0.1.1
-Date: 2021-08-08
+Version: 0.1.2
+Date: 2021-08-11
 Title: Logistic Regression Equivalence
-Description: Tools for assesing equivalence of similar Logistic Regression models.
+Description: Tools for assessing equivalence of similar Logistic Regression models.
 Author: Guy Ashiri-Prossner
 Maintainer: Guy Ashiri-Prossner <guy.ashiri@mail.huji.ac.il>
 Encoding: UTF-8
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 License: MIT + file LICENSE
 Imports: 
     stats

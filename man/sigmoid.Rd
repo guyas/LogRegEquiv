@@ -20,4 +20,3 @@ This function takes a number \eqn{\theta} and returns its
 \examples{
 sigmoid(0)
 }
-\keyword{sigmoid}

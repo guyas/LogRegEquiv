@@ -8,7 +8,7 @@
 #' @param y the obsrevations vector
 #' @param na.rm ignore NA? (optional)
 #' @return The Brier score \eqn{\frac{1}{N}\sum_{i=1}^{N}{(y_i-\pi_i)^2}}
-#' @keywords Brier
+#' @keywords Brier-score
 #' @export
 #' @examples
 #' brier_score(rbinom(10,1,seq(0.1, 1, 0.1)), seq(0.1, 1, 0.1))

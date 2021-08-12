@@ -1,4 +1,4 @@
-test_that("aggregated_predictive_equiv works, female test data", {
+test_that("performance_equiv works, female test data", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -27,7 +27,7 @@ test_that("aggregated_predictive_equiv works, female test data", {
   d <- b_female - b_male
 
   t <- 0.1
-  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t - t^2
+  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t + t^2
   alpha <- 0.05
 
   t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
@@ -37,7 +37,7 @@ test_that("aggregated_predictive_equiv works, female test data", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- aggregated_predictive_equiv(model_female, model_male,
+  be_out <- performance_equiv(model_female, model_male,
                                               test_data, dv_index, t, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
@@ -48,7 +48,7 @@ test_that("aggregated_predictive_equiv works, female test data", {
 })
 
 
-test_that("aggregated_predictive_equiv works, male test data", {
+test_that("performance_equiv works, male test data", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -77,7 +77,7 @@ test_that("aggregated_predictive_equiv works, male test data", {
   d <- b_female - b_male
 
   t <- 0.1
-  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t - t^2
+  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t + t^2
   alpha <- 0.05
 
   t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
@@ -87,7 +87,7 @@ test_that("aggregated_predictive_equiv works, male test data", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- aggregated_predictive_equiv(model_female, model_male,
+  be_out <- performance_equiv(model_female, model_male,
                                               test_data, dv_index, t, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
@@ -98,7 +98,7 @@ test_that("aggregated_predictive_equiv works, male test data", {
 })
 
 
-test_that("aggregated_predictive_equiv works, male test data, t=0.01", {
+test_that("performance_equiv works, male test data, t=0.01", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -127,7 +127,7 @@ test_that("aggregated_predictive_equiv works, male test data, t=0.01", {
   d <- b_female - b_male
 
   t <- 0.01
-  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t - t^2
+  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t + t^2
   alpha <- 0.05
 
   t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
@@ -137,7 +137,7 @@ test_that("aggregated_predictive_equiv works, male test data, t=0.01", {
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
-  be_out <- aggregated_predictive_equiv(model_female, model_male,
+  be_out <- performance_equiv(model_female, model_male,
                                               test_data, dv_index, t, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)

@@ -34,7 +34,3 @@ This function takes two logistic regression models \eqn{M_A, M_B},
     \eqn{r}. It checks whether the models produce equivalent log-odds for
     the given test set and returns various figures.
 }
-\keyword{equivalence}
-\keyword{equivalence,}
-\keyword{log-odds}
-\keyword{theta}

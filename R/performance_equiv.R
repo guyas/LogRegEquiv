@@ -1,4 +1,4 @@
-#' aggregated_predictive_equiv function
+#' performance_equiv function
 #'
 #' This function takes two logistic regression models \eqn{M_A, M_B},
 #'     test data, significance level \eqn{\alpha} and sensitivity level
@@ -19,15 +19,14 @@
 #'   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
 #'   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
 #'   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
-#'   \item{\code{t}}{Calculated equivalence parameter}
+#'   \item{\code{delta_B}}{Calculated equivalence parameter}
 #'   \item{\code{p_value_l}}{P-value for \eqn{t_L}}
 #'   \item{\code{p_value_u}}{P-value for \eqn{t_U}}
 #' }
-#' @keywords brier equivalence
 #' @export
 #' @importFrom stats predict.glm var qt pt
 
-aggregated_predictive_equiv <- function(model_a, model_b, test_data,
+performance_equiv <- function(model_a, model_b, test_data,
                               dv_index, t = 0.1, alpha = 0.05) {
   m <- nrow(test_data)
   test_y <- test_data[, dv_index]
@@ -39,7 +38,7 @@ aggregated_predictive_equiv <- function(model_a, model_b, test_data,
   b_bc <- (pi_bc - test_y)^2
   d <- b_ac - b_bc
   b_abs <- abs(test_y - pi_ac)
-  delta <- (2 * t) * mean(b_abs) - t^2
+  delta <- (2 * t) * mean(b_abs) + t^2
   test_stat_l <- sqrt(m) * (mean(d) + delta) / sqrt(var(d))
   test_stat_u <- sqrt(m) * (mean(d) - delta) / sqrt(var(d))
   equivalence_threshold <- qt(1 - alpha, df = (m - 1), lower.tail = T)

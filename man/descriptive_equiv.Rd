@@ -32,6 +32,3 @@ This function takes two datasets \eqn{X_A, X_B}, regression formula,
     obtained coefficient vectors are equivalent, using the
     \code{beta_equivalence} function.
 }
-\keyword{coefficients}
-\keyword{equivalence}
-\keyword{vector}

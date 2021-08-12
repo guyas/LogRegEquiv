@@ -5,7 +5,6 @@
 #'     This is used in logistic regression to model \eqn{P(y=1|x)}.
 #' @param theta the linear predictor
 #' @return the sigmoid probability
-#' @keywords sigmoid
 #' @export
 #' @examples
 #' sigmoid(0)

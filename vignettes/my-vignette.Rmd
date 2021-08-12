@@ -1,7 +1,7 @@
 ---
 title: "LogRegEquiv Vignette"
 author: "Guy Ashiri-Prossner"
-date: "8.8.2021"
+date: "`r format(Sys.Date(), '%d.%m.%Y')`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{my-vignette}
@@ -125,15 +125,15 @@ print(individual_predictive_equiv(model_a = female_model,
 ```
 
 
-# Aggregated Predictive Equivalence Testing
+# Performance Equivalence Testing
 
 The Brier score is reducing the assessment of the overall model performance into a single figure. Given models $M^A,M^B$ and a test set $X^{test}$ of size $m$, we can assess the equivalence of the Brier scores obtained by the models. As the Brier score is in the range $[0,1]$, the allowed difference $\delta_B$ should be manually selected from the range $[0.001, 0.5]$. As the Brier score tends to converge quickly, it is recommended to use $\delta_B \leq \frac{1}{2\sqrt{m}}$, where $m$ is the test set size.
 The `dv_index` variable indicates the column number of the dependent variable.
 
-```{r aggregated predictive equivalence female test, echo=TRUE}
+```{r performance equivalence female test, echo=TRUE}
 testing_data <- ptg_stud_m_test
 delta_b <- 1 / (2 * sqrt(nrow(testing_data)))
-print(aggregated_predictive_equiv(model_a = female_model, 
+print(performance_equiv(model_a = female_model, 
                         model_b = male_model, 
                         test_data = testing_data,
                         dv_index = 30,
@@ -141,7 +141,7 @@ print(aggregated_predictive_equiv(model_a = female_model,
                         alpha = 0.05))
 
 
-print(aggregated_predictive_equiv(model_a = female_model, 
+print(performance_equiv(model_a = female_model, 
                         model_b = male_model, 
                         test_data = ptg_stud_f_test,
                         dv_index = 30,
