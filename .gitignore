@@ -1,7 +1,9 @@
 LogRegEquiv.Rproj
 .Rbuildignore
 .Rhistory
+.RData
+/.Rhistory
+/.RData
 /.Rproj.user/*
 .Rproj.user
 inst/doc
-.RData
