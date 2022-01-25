@@ -24,21 +24,22 @@ test_that("performance_equiv works, female test data", {
   b_male <- (y_test - pi_hat_male)^2
   bs_male <- mean(b_male)
 
-  d <- b_female - b_male
-
-  t <- 0.1
-  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t + t^2
+  delta <- 1.1
+  eps <- delta^2
   alpha <- 0.05
 
-  t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
-  t_stat_u <- sqrt(n) * (mean(d) - delta) / sqrt(var(d))
+  d_l <- eps * b_male - b_female
+  d_u <- b_male - eps * b_female
+
+  t_stat_l <- mean(d_l) / sqrt(var(d_l))
+  t_stat_u <- mean(d_u) / sqrt(var(d_u))
   threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
   equiv_left <- (threshold < t_stat_l)
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
   be_out <- performance_equiv(model_female, model_male,
-                                              test_data, dv_index, t, alpha)
+                                              test_data, dv_index, delta, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
@@ -74,21 +75,22 @@ test_that("performance_equiv works, male test data", {
   b_male <- (y_test - pi_hat_male)^2
   bs_male <- mean(b_male)
 
-  d <- b_female - b_male
-
-  t <- 0.1
-  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t + t^2
+  delta <- 1.1
+  eps <- delta^2
   alpha <- 0.05
 
-  t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
-  t_stat_u <- sqrt(n) * (mean(d) - delta) / sqrt(var(d))
+  d_l <- eps * b_male - b_female
+  d_u <- b_male - eps * b_female
+
+  t_stat_l <- mean(d_l) / sqrt(var(d_l))
+  t_stat_u <- mean(d_u) / sqrt(var(d_u))
   threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
   equiv_left <- (threshold < t_stat_l)
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
   be_out <- performance_equiv(model_female, model_male,
-                                              test_data, dv_index, t, alpha)
+                                              test_data, dv_index, delta, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
@@ -98,7 +100,7 @@ test_that("performance_equiv works, male test data", {
 })
 
 
-test_that("performance_equiv works, male test data, t=0.01", {
+test_that("performance_equiv works, male test data, delta=1.01", {
   "ptg_stud_f_train"
   "ptg_stud_f_test"
   "ptg_stud_m_train"
@@ -124,25 +126,27 @@ test_that("performance_equiv works, male test data, t=0.01", {
   b_male <- (y_test - pi_hat_male)^2
   bs_male <- mean(b_male)
 
-  d <- b_female - b_male
-
-  t <- 0.01
-  delta <- mean(abs(y_test - pi_hat_female)) * 2 * t + t^2
+  delta <- 1.01
+  eps <- delta^2
   alpha <- 0.05
 
-  t_stat_l <- sqrt(n) * (mean(d) + delta) / sqrt(var(d))
-  t_stat_u <- sqrt(n) * (mean(d) - delta) / sqrt(var(d))
+  d_l <- eps * b_male - b_female
+  d_u <- b_male - eps * b_female
+
+  t_stat_l <- mean(d_l) / sqrt(var(d_l))
+  t_stat_u <- mean(d_u) / sqrt(var(d_u))
   threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
   equiv_left <- (threshold < t_stat_l)
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
 
   be_out <- performance_equiv(model_female, model_male,
-                                              test_data, dv_index, t, alpha)
+                                              test_data, dv_index, delta, alpha)
   expect_equal(be_out$brier_score_ac, bs_female)
   expect_equal(be_out$brier_score_bc, bs_male)
   expect_equal(be_out$equivalence, equivalence)
-  expect_equal(be_out$diff_sd, sqrt(var(d)))
+  expect_equal(be_out$diff_sd_l, sqrt(var(d_l)))
+  expect_equal(be_out$diff_sd_u, sqrt(var(d_u)))
   expect_equal(be_out$test_stat_l, t_stat_l)
   expect_equal(be_out$test_stat_u, t_stat_u)
   expect_equal(be_out$crit_val, threshold)

@@ -127,17 +127,16 @@ print(individual_predictive_equiv(model_a = female_model,
 
 # Performance Equivalence Testing
 
-The Brier score is reducing the assessment of the overall model performance into a single figure. Given models $M^A,M^B$ and a test set $X^{test}$ of size $m$, we can assess the equivalence of the Brier scores obtained by the models. As the Brier score is in the range $[0,1]$, the allowed difference $\delta_B$ should be manually selected from the range $[0.001, 0.5]$. As the Brier score tends to converge quickly, it is recommended to use $\delta_B \leq \frac{1}{2\sqrt{m}}$, where $m$ is the test set size.
+The Brier score is reducing the assessment of the overall model performance into a single figure. Given models $M^A,M^B$ and a test set $X^{test}$ of size $m$, we can assess the equivalence of the Brier scores obtained by the models. The acceptable score degradation $\delta_B>1$ should be selected, we then see the Brier scores as equivalent if $\frac{1}{\delta_B^2}<\frac{BS^B}{BS^A}<\delta_B^2$.
 The `dv_index` variable indicates the column number of the dependent variable.
 
 ```{r performance equivalence female test, echo=TRUE}
 testing_data <- ptg_stud_m_test
-delta_b <- 1 / (2 * sqrt(nrow(testing_data)))
 print(performance_equiv(model_a = female_model, 
                         model_b = male_model, 
                         test_data = testing_data,
                         dv_index = 30,
-                        t = delta_b,
+                        delta_B = 1.1,
                         alpha = 0.05))
 
 
@@ -145,6 +144,6 @@ print(performance_equiv(model_a = female_model,
                         model_b = male_model, 
                         test_data = ptg_stud_f_test,
                         dv_index = 30,
-                        t = 0.1,
+                        delta_B = 1.1,
                         alpha = 0.05))
 ```

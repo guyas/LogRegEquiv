@@ -4,7 +4,14 @@
 \alias{performance_equiv}
 \title{performance_equiv function}
 \usage{
-performance_equiv(model_a, model_b, test_data, dv_index, t = 0.1, alpha = 0.05)
+performance_equiv(
+  model_a,
+  model_b,
+  test_data,
+  dv_index,
+  delta_B = 1.1,
+  alpha = 0.05
+)
 }
 \arguments{
 \item{model_a}{logistic regression model \eqn{M_A}}
@@ -15,7 +22,7 @@ performance_equiv(model_a, model_b, test_data, dv_index, t = 0.1, alpha = 0.05)
 
 \item{dv_index}{column number of the dependent variable}
 
-\item{t}{acceptable tolerance level (defaults to 0.1)}
+\item{delta_B}{acceptable score degradation (defaults to 1.1)}
 
 \item{alpha}{significance level \eqn{\alpha} (defaults to 0.05)}
 }
@@ -36,7 +43,7 @@ performance_equiv(model_a, model_b, test_data, dv_index, t = 0.1, alpha = 0.05)
 }
 \description{
 This function takes two logistic regression models \eqn{M_A, M_B},
-    test data, significance level \eqn{\alpha} and sensitivity level
-    \eqn{\delta_B}. It checks whether the models perform equivalently on the
-    test set and returns various figures.
+    test data, significance level \eqn{\alpha} and acceptable score
+    degradation \eqn{\delta_B}. It checks whether the models perform
+    equivalently on the test set and returns various figures.
 }
