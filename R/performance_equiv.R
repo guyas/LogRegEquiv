@@ -41,7 +41,7 @@ performance_equiv <- function(model_a, model_b, test_data,
   d_u <- b_bc - eps_b * b_ac
   test_stat_l <- mean(d_l) / sqrt(var(d_l))
   test_stat_u <- mean(d_u) / sqrt(var(d_u))
-  equivalence_threshold <- qt(1 - alpha, df = (m - 1), lower.tail = T)
+  equivalence_threshold <- qt(alpha, df = (m - 1), lower.tail = T)
   bse_l <- (test_stat_l > equivalence_threshold)
   bse_u <- (test_stat_u < -equivalence_threshold)
   return(list(

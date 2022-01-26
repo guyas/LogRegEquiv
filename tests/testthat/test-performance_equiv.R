@@ -33,7 +33,7 @@ test_that("performance_equiv works, female test data", {
 
   t_stat_l <- mean(d_l) / sqrt(var(d_l))
   t_stat_u <- mean(d_u) / sqrt(var(d_u))
-  threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
+  threshold <- qt(alpha, df = (n - 1), lower.tail = T)
   equiv_left <- (threshold < t_stat_l)
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
@@ -84,7 +84,7 @@ test_that("performance_equiv works, male test data", {
 
   t_stat_l <- mean(d_l) / sqrt(var(d_l))
   t_stat_u <- mean(d_u) / sqrt(var(d_u))
-  threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
+  threshold <- qt(alpha, df = (n - 1), lower.tail = T)
   equiv_left <- (threshold < t_stat_l)
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
@@ -135,7 +135,7 @@ test_that("performance_equiv works, male test data, delta=1.01", {
 
   t_stat_l <- mean(d_l) / sqrt(var(d_l))
   t_stat_u <- mean(d_u) / sqrt(var(d_u))
-  threshold <- qt(1 - alpha, df = (n - 1), lower.tail = T)
+  threshold <- qt(alpha, df = (n - 1), lower.tail = T)
   equiv_left <- (threshold < t_stat_l)
   equiv_right <- (t_stat_u < -threshold)
   equivalence <- (equiv_left && equiv_right)
