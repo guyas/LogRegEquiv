@@ -37,11 +37,11 @@ performance_equiv <- function(model_a, model_b, test_data,
   bs_bc <- brier_score(test_y, pi_bc)
   b_ac <- (pi_ac - test_y)^2
   b_bc <- (pi_bc - test_y)^2
-  d_l <- eps_b * b_bc - b_ac
-  d_u <- b_bc - eps_b * b_ac
+  d_l <- b_bc - (b_ac * eps_b)
+  d_u <- b_bc - (b_ac / eps_b)
   test_stat_l <- mean(d_l) / sqrt(var(d_l))
   test_stat_u <- mean(d_u) / sqrt(var(d_u))
-  equivalence_threshold <- qt(alpha, df = (m - 1), lower.tail = T)
+  equivalence_threshold <- qt(alpha, df = (m - 1))
   bse_l <- (test_stat_l > equivalence_threshold)
   bse_u <- (test_stat_u < -equivalence_threshold)
   return(list(
