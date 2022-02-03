@@ -32,7 +32,8 @@ performance_equiv(
       Brier scores for the given test data? (boolean)}
   \item{\code{brier_score_ac}}{\eqn{M_A} Brier score on the testing data}
   \item{\code{brier_score_bc}}{\eqn{M_B} Brier score on the testing data}
-  \item{\code{diff_sd}}{SD of the Brier differences}
+  \item{\code{diff_sd_l}}{SD of the lower Brier difference \eqn{BS^A-\delta_B^2BS^B}}
+  \item{\code{diff_sd_u}}{SD of the upper Brier difference \eqn{BS^A-\delta_B^{-2}BS^B}}
   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}

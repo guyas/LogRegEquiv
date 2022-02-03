@@ -15,7 +15,8 @@
 #'       Brier scores for the given test data? (boolean)}
 #'   \item{\code{brier_score_ac}}{\eqn{M_A} Brier score on the testing data}
 #'   \item{\code{brier_score_bc}}{\eqn{M_B} Brier score on the testing data}
-#'   \item{\code{diff_sd}}{SD of the Brier differences}
+#'   \item{\code{diff_sd_l}}{SD of the lower Brier difference \eqn{BS^A-\delta_B^2BS^B}}
+#'   \item{\code{diff_sd_u}}{SD of the upper Brier difference \eqn{BS^A-\delta_B^{-2}BS^B}}
 #'   \item{\code{test_stat_l}}{\eqn{t_L} equivalence boundary for the test}
 #'   \item{\code{test_stat_u}}{\eqn{t_U} equivalence boundary for the test}
 #'   \item{\code{crit_val}}{a level-\eqn{\alpha} critical value for the test}
@@ -37,11 +38,11 @@ performance_equiv <- function(model_a, model_b, test_data,
   bs_bc <- brier_score(test_y, pi_bc)
   b_ac <- (pi_ac - test_y)^2
   b_bc <- (pi_bc - test_y)^2
-  d_l <- b_bc - (b_ac * eps_b)
-  d_u <- b_bc - (b_ac / eps_b)
-  test_stat_l <- mean(d_l) / sqrt(var(d_l))
-  test_stat_u <- mean(d_u) / sqrt(var(d_u))
-  equivalence_threshold <- qt(alpha, df = (m - 1))
+  d_l <- b_bc - (b_ac / eps_b)
+  d_u <- b_bc - (b_ac * eps_b)
+  test_stat_l <- sqrt(m) * mean(d_l) / sqrt(var(d_l))
+  test_stat_u <- sqrt(m) * mean(d_u) / sqrt(var(d_u))
+  equivalence_threshold <- qt(1 - 0.5 * alpha, df = (m - 1))
   bse_l <- (test_stat_l > equivalence_threshold)
   bse_u <- (test_stat_u < -equivalence_threshold)
   return(list(
@@ -54,8 +55,8 @@ performance_equiv <- function(model_a, model_b, test_data,
     test_stat_u = test_stat_u,
     crit_val = equivalence_threshold,
     epsilon_B = eps_b,
-    p_value_l = pchisq(test_stat_l, m - 1, lower.tail = FALSE),
-    p_value_u = pchisq(test_stat_u, m - 1)
+    p_value_l = pt(test_stat_l, m - 1),
+    p_value_u = pt(test_stat_u, m - 1)
     )
   )
 }
