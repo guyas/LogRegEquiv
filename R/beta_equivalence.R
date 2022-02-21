@@ -7,7 +7,7 @@
 #' @param model_b logistic regression model \eqn{M_B}
 #' @param delta equivalence sensitivity level \eqn{\delta_\beta}. This could
 #'     either be a scalar or a vector with length matching the number of
-#'     ceofficients.
+#'     coefficients.
 #' @param alpha significance level \eqn{\alpha}
 #' @return \describe{
 #'   \item{\code{equivalence}}{are the coefficient vectors equivalent?

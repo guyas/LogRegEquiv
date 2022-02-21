@@ -17,7 +17,7 @@ brier_score(y, pi, na.rm = FALSE)
 The Brier score \eqn{\frac{1}{N}\sum_{i=1}^{N}{(y_i-\pi_i)^2}}
 }
 \description{
-This function takes a obsrevations vector \eqn{y} and matching
+This function takes a observations vector \eqn{y} and matching
      predictions vector \eqn{\pi}. It returns the Brier score for the
      predictions. Unless specified otherwise, input containing NAs will
      result with an NA.

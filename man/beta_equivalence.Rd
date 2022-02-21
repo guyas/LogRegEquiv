@@ -13,7 +13,7 @@ beta_equivalence(model_a, model_b, delta, alpha)
 
 \item{delta}{equivalence sensitivity level \eqn{\delta_\beta}. This could
 either be a scalar or a vector with length matching the number of
-ceofficients.}
+coefficients.}
 
 \item{alpha}{significance level \eqn{\alpha}}
 }

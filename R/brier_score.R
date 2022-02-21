@@ -1,6 +1,6 @@
 #' brier_score function
 #'
-#' This function takes a obsrevations vector \eqn{y} and matching
+#' This function takes a observations vector \eqn{y} and matching
 #'      predictions vector \eqn{\pi}. It returns the Brier score for the
 #'      predictions. Unless specified otherwise, input containing NAs will
 #'      result with an NA.
